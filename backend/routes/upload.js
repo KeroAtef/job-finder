@@ -4,12 +4,14 @@ const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 const cvParser = require('../services/cvParser');
+const { getDataDir, getDataPath } = require('../utils/paths');
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '..', 'uploads');
+    const uploadDir = process.env.VERCEL ? '/tmp/uploads' : path.join(__dirname, '..', 'uploads');
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
     cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
@@ -47,9 +49,9 @@ router.post('/cv', upload.single('cv'), async (req, res) => {
       ...analysis
     };
 
-    const dataDir = path.join(__dirname, '..', '..', 'data');
+    const dataDir = getDataDir();
     if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
-    fs.writeFileSync(path.join(dataDir, 'cv-data.json'), JSON.stringify(cvData, null, 2));
+    fs.writeFileSync(getDataPath('cv-data.json'), JSON.stringify(cvData, null, 2));
 
     const response = { ...cvData };
     delete response.rawText;
@@ -66,9 +68,9 @@ router.post('/cover-letter', upload.single('coverLetter'), async (req, res) => {
       return res.status(400).json({ error: 'No file uploaded' });
     }
     const text = await cvParser.parse(req.file.path);
-    const dataDir = path.join(__dirname, '..', '..', 'data');
+    const dataDir = getDataDir();
     if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
-    fs.writeFileSync(path.join(dataDir, 'cover-letter.json'), JSON.stringify({
+    fs.writeFileSync(getDataPath('cover-letter.json'), JSON.stringify({
       fileName: req.file.originalname,
       uploadedAt: new Date().toISOString(),
       text

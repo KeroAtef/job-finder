@@ -1,8 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const { getDataPath } = require('../utils/paths');
 
-const STATES_PATH = path.join(__dirname, '..', '..', 'data', 'states.json');
-const STORIES_PATH = path.join(__dirname, '..', '..', 'data', 'stories.json');
+const STATES_PATH = getDataPath('states.json');
+const STORIES_PATH = getDataPath('stories.json');
 
 const CANONICAL_STATES = [
   { id: 'pending', labelAr: 'قيد الانتظار', labelEn: 'Pending', color: '#f59e0b', aliases: ['pending', 'waiting', 'new', 'قيد الانتظار'] },

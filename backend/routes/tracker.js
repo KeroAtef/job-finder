@@ -1,10 +1,10 @@
 const express = require('express');
 const fs = require('fs');
-const path = require('path');
 const careerOps = require('../services/careerOps');
+const { getDataPath } = require('../utils/paths');
 
 const router = express.Router();
-const trackerPath = path.join(__dirname, '..', '..', 'data', 'tracker.json');
+const trackerPath = getDataPath('tracker.json');
 
 router.get('/', (req, res) => {
   try {
@@ -71,7 +71,7 @@ router.delete('/:id', (req, res) => {
 });
 
 /* === SAVED SEARCHES === */
-const savedPath = path.join(__dirname, '..', '..', 'data', 'saved-searches.json');
+const savedPath = getDataPath('saved-searches.json');
 function loadSaved() { try { return JSON.parse(fs.readFileSync(savedPath, 'utf-8')); } catch (e) { return []; } }
 function saveSaved(arr) { fs.writeFileSync(savedPath, JSON.stringify(arr, null, 2)); }
 

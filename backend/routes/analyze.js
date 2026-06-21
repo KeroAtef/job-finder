@@ -1,14 +1,14 @@
 const express = require('express');
 const fs = require('fs');
-const path = require('path');
 const atsScorer = require('../services/atsScorer');
 const jobMatcher = require('../services/jobMatcher');
+const { getDataPath } = require('../utils/paths');
 
 const router = express.Router();
+const dataPath = getDataPath('cv-data.json');
 
 router.get('/cv', (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) {
       return res.status(404).json({ error: 'No CV found. Please upload first.' });
     }
@@ -21,7 +21,6 @@ router.get('/cv', (req, res) => {
 
 router.get('/ats-score', (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) {
       return res.status(404).json({ error: 'No CV found. Please upload first.' });
     }
@@ -35,7 +34,6 @@ router.get('/ats-score', (req, res) => {
 
 router.get('/ats-improvements', (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) {
       return res.status(404).json({ error: 'No CV found.' });
     }
@@ -49,7 +47,6 @@ router.get('/ats-improvements', (req, res) => {
 
 router.get('/matched-jobs', async (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) {
       return res.status(404).json({ error: 'No CV found.' });
     }
@@ -67,7 +64,6 @@ router.get('/matched-jobs', async (req, res) => {
 
 router.post('/skill-gap', (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) return res.status(404).json({ error: 'No CV found.' });
     const cvData = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
     const jobDesc = (req.body.description || '').toLowerCase();
@@ -95,7 +91,6 @@ router.post('/skill-gap', (req, res) => {
 
 router.post('/full-analysis', (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) {
       return res.status(404).json({ error: 'No CV found.' });
     }

@@ -1,13 +1,12 @@
 const express = require('express');
 const fs = require('fs');
-const path = require('path');
 const careerOps = require('../services/careerOps');
+const { getDataPath } = require('../utils/paths');
 
 const router = express.Router();
-const DATA_DIR = path.join(__dirname, '..', '..', 'data');
 
 function readJSON(file) {
-  const p = path.join(DATA_DIR, file);
+  const p = getDataPath(file);
   if (!fs.existsSync(p)) return null;
   try { return JSON.parse(fs.readFileSync(p, 'utf-8')); } catch(e) { return null; }
 }
@@ -76,7 +75,7 @@ router.post('/dedup-tracker', (req, res) => {
       seen.add(`${entry.company || ''}|||${entry.role || ''}`);
       kept.push(entry);
     }
-    fs.writeFileSync(path.join(DATA_DIR, 'tracker.json'), JSON.stringify(kept, null, 2));
+    fs.writeFileSync(getDataPath('tracker.json'), JSON.stringify(kept, null, 2));
     res.json({ removed: removed.length, kept: kept.length });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -92,7 +91,7 @@ router.get('/normalize-tracker', (req, res) => {
       if (n !== e.status) changed++;
       return { ...e, status: n };
     });
-    fs.writeFileSync(path.join(DATA_DIR, 'tracker.json'), JSON.stringify(normalized, null, 2));
+    fs.writeFileSync(getDataPath('tracker.json'), JSON.stringify(normalized, null, 2));
     res.json({ changed, total: normalized.length });
   } catch (err) {
     res.status(500).json({ error: err.message });

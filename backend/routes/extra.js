@@ -1,16 +1,15 @@
 const express = require('express');
 const fs = require('fs');
-const path = require('path');
 const salaryResearch = require('../services/salaryResearch');
 const livenessCheck = require('../services/livenessCheck');
 const companyResearch = require('../services/companyResearch');
 const coverLetterGen = require('../services/coverLetterGen');
+const { getDataDir, getDataPath } = require('../utils/paths');
 
 const router = express.Router();
-const DATA_DIR = path.join(__dirname, '..', '..', 'data');
 
 function readJSON(file) {
-  const p = path.join(DATA_DIR, file);
+  const p = getDataPath(file);
   if (!fs.existsSync(p)) return null;
   try { return JSON.parse(fs.readFileSync(p, 'utf-8')); } catch(e) { return null; }
 }

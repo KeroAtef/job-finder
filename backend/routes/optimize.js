@@ -1,14 +1,14 @@
 const express = require('express');
 const fs = require('fs');
-const path = require('path');
 const atsOptimizer = require('../services/atsOptimizer');
 const pdfGenerator = require('../services/pdfGenerator');
+const { getDataPath } = require('../utils/paths');
 
 const router = express.Router();
+const dataPath = getDataPath('cv-data.json');
 
 router.get('/report', (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) {
       return res.status(404).json({ error: 'No CV found.' });
     }
@@ -22,7 +22,6 @@ router.get('/report', (req, res) => {
 
 router.get('/generate', (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) {
       return res.status(404).json({ error: 'No CV found.' });
     }
@@ -36,7 +35,6 @@ router.get('/generate', (req, res) => {
 
 router.get('/print', (req, res) => {
   try {
-    const dataPath = path.join(__dirname, '..', '..', 'data', 'cv-data.json');
     if (!fs.existsSync(dataPath)) {
       return res.status(404).send('<h2>No CV found. Please upload first.</h2>');
     }

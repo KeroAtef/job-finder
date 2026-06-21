@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
+app.use(express.static(path.join(process.cwd(), 'frontend')));
 
 app.use('/api/upload', uploadRoute);
 app.use('/api/analyze', analyzeRoute);
@@ -35,27 +35,33 @@ app.get('/api/health', (req, res) => {
 
 // SEO
 app.get('/sitemap.xml', (req, res) => {
+  const base = `https://${req.get('host')}`;
   res.header('Content-Type', 'application/xml');
   res.send(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://job-finder-app.com</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://job-finder-app.com/login</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://job-finder-app.com/pages/dashboard</loc><priority>0.5</priority><changefreq>daily</changefreq></url>
+  <url><loc>${base}</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>${base}/login</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>${base}/pages/dashboard</loc><priority>0.5</priority><changefreq>daily</changefreq></url>
 </urlset>`);
 });
 
 app.get('/robots.txt', (req, res) => {
+  const base = `https://${req.get('host')}`;
   res.header('Content-Type', 'text/plain');
   res.send(`User-agent: *
 Allow: /
 Allow: /login
 Disallow: /pages/dashboard
 
-Sitemap: https://job-finder-app.com/sitemap.xml`);
+Sitemap: ${base}/sitemap.xml`);
 });
 
 connectDB().catch(() => {});
 
-app.listen(PORT, () => {
-  console.log(`Job Finder app running at http://localhost:${PORT}`);
-});
+// Only listen when running directly (not imported by Vercel)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Job Finder app running at http://localhost:${PORT}`);
+  });
+}
+module.exports = app;
