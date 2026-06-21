@@ -1,0 +1,86 @@
+{
+  "id": "c3b728cb-fc62-4ae6-942c-b39e04a52622",
+  "fileName": "Kerolos Mechatronics Engineer CV.pdf",
+  "uploadedAt": "2026-06-21T13:54:44.099Z",
+  "rawText": "\n\nKEROLOS ATEF ADLY\nAddress: El-Zaytoun, Cairo, Egypt 61111                           phone: +201220714614\nEmail: kerolos.a.adly@gmail.com                                LinkedIn: linkedin.com/in/kerolosatefadly\nMECHATRONICS ENGINEER (Industrial automation systems)\nWORK EXPERIENCE\n• Mechatronics Engineer\nTR. Tesla Company | New Minia, Egypt | 2023 – 11.2025\nInitially joined as a trainee before graduation and was later hired full-time. Responsible\nfor maintaining and troubleshooting production lines, installing and wiring control panels,\nprogramming PLCs, and setting up capacitor banks for power-factor correction.\nCurrently working on integrating mobile applications with production systems using my\nFlutter development skills to improve monitoring and automation efficiency.\n• Flutter Mobile Application Developer\nXzone-EG | 2022 – 2023\nFreelance | 2023 – Present\nDeveloped and maintained cross-platform mobile applications using Flutter. Designed\nuser-friendly interfaces, optimized app performance, and collaborated with clients to\ndeliver customized solutions for various business needs.\n• Smart Home Engineer & Installation Supervisor\nCASA for smart solutions | 2020 – 2022 | Minia, Egypt\n Installed and configured smart home systems, including automation controllers,\nsensors, and lighting systems. Supervised on-site installations and ensured smooth\nintegration of control panels and network components.\n• Production & Maintenance Engineer for production line\nNageh Tex Factory | The third industrial zone, 10th of Ramadan | 11.2025 – Present\nAs the Maintenance Manager, I oversee the full operation of a velvet raising production\nline consisting of 15 industrial machines. I manage daily production workflow, ensure\nminimal downtime, and handle all electrical and mechanical maintenance. My role\nincludes troubleshooting, implementing preventive maintenance programs, optimizing\nmachine performance, and supervising operators and technicians while maintaining high\nsafety and quality standards.\nABOUT ME\nMechatronics Engineer specialized in industrial automation and mobile application\ndevelopment, with hands-on experience in PLC programming, production line\nmaintenance, and smart systems integration. Skilled in Flutter development and\npassionate about combining software with automation to improve efficiency and smart\nmanufacturing solutions.\n\nADDITIONAL INFORMATION\nLanguages: \n      Arabic (Native)\n      English: (very good)\nCertifications: \n      PLC Programming – HA Consulting Group - Cairo\n      Electric Motor & Drive Programming – HA Consulting Group - Cairo\n      Classic Control – HA Consulting Group - Cairo\n      Smart Home & Automation Systems - ETA ACADEMY - Cairo\nCOURSES AND ACHIEVEMENTS\nControl Fundamentals and PLC Basics – HA Group - Cairo\nSmart home course - ETA academy - Cairo\nTraining course - MV premolded cable - Elsewedy Electric\nWon first place in the Line Follower Competition from the Chinese University of\nTechnology in Beni Suef\nVolunteer in “futur",
+  "name": "KEROLOS ATEF ADLY",
+  "emails": [
+    "kerolos.a.adly@gmail.com"
+  ],
+  "phones": [
+    "+201220714614"
+  ],
+  "links": [],
+  "skills": [
+    "python",
+    "php",
+    "mysql",
+    "flutter",
+    "plc",
+    "control panel",
+    "control system",
+    "industrial automation",
+    "sensors",
+    "matlab",
+    "solidworks",
+    "electrical",
+    "production line",
+    "manufacturing",
+    "maintenance",
+    "troubleshooting",
+    "automation",
+    "robotics",
+    "mechatronics",
+    "mobile",
+    "cross-platform",
+    "sensor",
+    "control",
+    "network",
+    "integration"
+  ],
+  "education": [
+    "Won first place in the Line Follower Competition from the Chinese University of",
+    "Bachelor of Engineering – Mechatronics and Industrial Robotics Department, Minia University,"
+  ],
+  "experience": {
+    "years": [
+      "2020",
+      "2022",
+      "2023",
+      "2025"
+    ],
+    "entries": [
+      "• Mechatronics Engineer",
+      "TR. Tesla Company | New Minia, Egypt | 2023 – 11.2025",
+      "Initially joined as a trainee before graduation and was later hired full-time. Responsible",
+      "for maintaining and troubleshooting production lines, installing and wiring control panels,",
+      "programming PLCs, and setting up capacitor banks for power-factor correction.",
+      "Currently working on integrating mobile applications with production systems using my",
+      "Flutter development skills to improve monitoring and automation efficiency.",
+      "• Flutter Mobile Application Developer",
+      "Xzone-EG | 2022 – 2023",
+      "Freelance | 2023 – Present",
+      "Developed and maintained cross-platform mobile applications using Flutter. Designed",
+      "user-friendly interfaces, optimized app performance, and collaborated with clients to",
+      "deliver customized solutions for various business needs.",
+      "• Smart Home Engineer & Installation Supervisor",
+      "CASA for smart solutions | 2020 – 2022 | Minia, Egypt",
+      "Installed and configured smart home systems, including automation controllers,",
+      "sensors, and lighting systems. Supervised on-site installations and ensured smooth",
+      "integration of control panels and network components.",
+      "• Production & Maintenance Engineer for production line",
+      "Nageh Tex Factory | The third industrial zone, 10th of Ramadan | 11.2025 – Present"
+    ]
+  },
+  "sections": [
+    "experience",
+    "about me",
+    "languages",
+    "certifications",
+    "achievements",
+    "education",
+    "skills"
+  ],
+  "wordCount": 574,
+  "summary": "KEROLOS ATEF ADLY\nAddress: El-Zaytoun, Cairo, Egypt 61111 phone: +201220714614\nEmail: kerolos.a.adly@gmail.com LinkedIn: linkedin.com/in/kerolosatefadly\nMECHATRONICS ENGINEER (Industrial automation systems)\nWORK EXPERIENCE\n• Mechatronics Engineer\nTR. Tesla Company | New Minia, Egypt | 2023 – 11.2025\nInitially joined as a trainee before graduation and was later hired full-time. Responsible\nfor maintaining and troubleshooting production lines, installing and wiring control panels,\nprogramming PLCs"
+}

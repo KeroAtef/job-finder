@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة التحكم - Job Finder | تحليل السيرة الذاتية والبحث عن الوظائف</title>
+  <meta name="description" content="لوحة التحكم في Job Finder: ارفع سيرتك الذاتية، احصل على تقييم ATS، ابحث عن الوظائف، وتابع طلباتك.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://job-finder-app.com/pages/dashboard">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Job Finder",
+    "url": "https://job-finder-app.com",
+    "description": "لوحة التحكم - تحليل السيرة الذاتية وتقييم ATS والبحث عن الوظائف",
+    "applicationCategory": "JobApplication",
+    "operatingSystem": "Web"
+  }
+  </script>
+  <link rel="stylesheet" href="../css/style.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3118479728175337" crossorigin="anonymous"></script>
+  <style>
+    .sidebar-nav .badge { background:#3b82f6;color:white;font-size:9px;padding:1px 6px;border-radius:8px;margin-right:4px }
+    .analytics-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px }
+    .analytics-card { background:white;border:1px solid var(--gray-200);border-radius:var(--radius);padding:16px;text-align:center }
+    .analytics-card .value { font-size:28px;font-weight:700;color:var(--primary) }
+    .analytics-card .label { font-size:12px;color:var(--gray-500);margin-top:4px }
+    .story-card { background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:12px;margin-bottom:10px }
+    .story-card .s { font-size:12px;color:var(--gray-500);margin:2px 0 }
+    .story-card .label { font-weight:600;color:var(--gray-700);font-size:13px }
+    .health-score { font-size:32px;font-weight:700;text-align:center }
+    .health-score.good { color:#16a34a }
+    .health-score.ok { color:#f59e0b }
+    .health-score.bad { color:#ef4444 }
+    .lang-toggle { position:fixed;top:10px;left:10px;z-index:1000;background:white;border:1px solid var(--gray-200);border-radius:20px;padding:4px 12px;cursor:pointer;font-size:12px;display:flex;align-items:center;gap:6px }
+    .lang-toggle:hover { background:var(--gray-50) }
+    .followup-urgent { border-right:3px solid #ef4444 !important }
+    .followup-overdue { border-right:3px solid #f59e0b !important }
+    .monthly-chart { display:flex;gap:6px;align-items:end;padding:10px 0;height:120px }
+    .monthly-bar { flex:1;background:var(--primary);border-radius:4px 4px 0 0;min-width:20px;position:relative;transition:height 0.3s }
+    .monthly-bar .lbl { position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--gray-400);white-space:nowrap }
+    .story-form textarea { width:100%;padding:8px;border:1px solid var(--gray-200);border-radius:var(--radius-sm);font-size:13px;margin-bottom:6px;resize:vertical;min-height:50px;font-family:inherit }
+    .story-form input { width:100%;padding:8px;border:1px solid var(--gray-200);border-radius:var(--radius-sm);font-size:13px;margin-bottom:6px }
+    .verify-issue { padding:8px 12px;margin:4px 0;border-radius:var(--radius-sm);font-size:13px }
+    .verify-issue.error { background:#fef2f2;border:1px solid #fecaca;color:#dc2626 }
+    .verify-issue.warning { background:#fffbeb;border:1px solid #fde68a;color:#d97706 }
+    .verify-issue.info { background:#eff6ff;border:1px solid #bfdbfe;color:#2563eb }
+    .tracker-density { font-size:12px;color:var(--gray-400);margin-bottom:6px }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div style="position:fixed;top:10px;left:10px;z-index:1000;display:flex;gap:6px">
+      <div class="lang-toggle" onclick="toggleLang()">
+        <span>🌐</span><span id="langLabel">English</span>
+      </div>
+      <div class="lang-toggle" onclick="toggleDark()">
+        <span id="darkIcon">☀️</span>
+      </div>
+    </div>
+    <header class="app-header">
+      <div class="logo">
+        <h1 id="siteTitle">Job Finder</h1>
+        <span class="tagline" id="siteTagline">باحثك الذكي عن الوظائف</span>
+      </div>
+      <nav class="main-nav">
+        <a href="../index.html" id="navHome">الرئيسية</a>
+        <a href="dashboard.html" class="active" id="navDashboard">لوحة التحكم</a>
+        <span id="subBadge" style="display:none;padding:0.25rem 0.6rem;border-radius:20px;font-size:0.7rem;font-weight:600;color:white" title="حالة الاشتراك"></span>
+      </nav>
+    </header>
+
+    <div class="dashboard-layout">
+      <aside class="sidebar" aria-label="القائمة الجانبية">
+        <nav aria-label="أقسام لوحة التحكم">
+        <ul class="sidebar-nav">
+          <li><a href="#" class="active" data-tab="upload">📄 <span data-i18n="upload">رفع السيرة الذاتية</span></a></li>
+          <li><a href="#" data-tab="analysis">📊 <span data-i18n="analysis">تحليل السيرة</span></a></li>
+          <li><a href="#" data-tab="ats">🏆 <span data-i18n="ats">تقييم ATS</span></a></li>
+          <li><a href="#" data-tab="optimize">✨ <span data-i18n="optimize">تحسين ATS</span></a></li>
+          <li><a href="#" data-tab="search">🔍 <span data-i18n="search">البحث عن وظائف</span></a></li>
+          <li><a href="#" data-tab="tracker">📋 <span data-i18n="tracker">متابعة الطلبات</span></a></li>
+          <li><a href="#" data-tab="skillgap" style="color:var(--primary)">📊 <span>فجوة المهارات</span></a></li>
+          <li><a href="#" data-tab="timeline">🕐 <span>خط زمني</span></a></li>
+          <li><a href="#" data-tab="savedsearch">🔖 <span>بحث محفوظ</span></a></li>
+          <li><a href="#" data-tab="compare">⚖️ <span>مقارنة</span></a></li>
+          <li><a href="#" data-tab="analytics">📈 <span data-i18n="analytics">التحليلات</span></a></li>
+          <li><a href="#" data-tab="interview">🎯 <span data-i18n="interview">تحضير المقابلات</span></a></li>
+        </ul>
+        <div style="padding:0.75rem;margin-top:0.5rem;border-top:1px solid var(--card-border)">
+          <!-- AdSense Sidebar Ad -->
+          <div class="ad-container" style="min-height:200px;background:var(--card-border);border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.7rem;color:var(--text-secondary);overflow:hidden">
+            <div id="ad-sidebar">
+              <span style="font-size:1rem;margin-bottom:4px;display:block">📢</span>
+              <span>إعلان</span>
+              <span style="opacity:0.5;font-size:0.6rem;display:block;margin-top:2px">للتواصل: 010-000-0000</span>
+            </div>
+            <!-- When AdSense approved, replace the div above with:
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-PUBLISHER_ID" data-ad-slot="SIDEBAR_SLOT_ID" data-ad-format="auto"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            -->
+          </div>
+        </div>
+        </nav>
+      </aside>
+
+      <main class="dashboard-content">
+        <!-- Upload Tab -->
+        <section id="tab-upload" class="tab-content active">
+          <h2 data-i18n="uploadTitle">رفع السيرة الذاتية</h2>
+          <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📄</div>
+            <p data-i18n="dragDrop">اسحب وأفلت ملف السيرة الذاتية هنا أو اضغط للاختيار</p>
+            <p class="upload-hint" data-i18n="uploadHint">PDF أو DOCX - الحد الأقصى 10MB</p>
+            <input type="file" id="cvFile" accept=".pdf,.docx,.doc" hidden>
+            <button class="btn btn-primary" onclick="document.getElementById('cvFile').click()" data-i18n="selectFile">اختيار ملف</button>
+          </div>
+          <div id="uploadStatus" class="upload-status"></div>
+          <div id="cvPreview" class="cv-preview" style="display:none">
+            <h3 data-i18n="cvSummary">ملخص السيرة الذاتية</h3>
+            <div id="cvSummary" class="cv-summary"></div>
+            <div class="cv-stats" id="cvStats"></div>
+          </div>
+          <hr>
+          <h3 data-i18n="coverLetter">رفع خطاب التقديم (اختياري)</h3>
+          <div class="upload-area upload-area-sm" id="clUploadArea">
+            <p data-i18n="clHint">خطاب التقديم - PDF أو DOCX</p>
+            <input type="file" id="clFile" accept=".pdf,.docx,.doc" hidden>
+            <button class="btn btn-secondary" onclick="document.getElementById('clFile').click()">اختيار ملف</button>
+          </div>
+          <div id="clStatus"></div>
+        </section>
+
+        <!-- Analysis Tab -->
+        <section id="tab-analysis" class="tab-content">
+          <h2 data-i18n="analysisTitle">تحليل السيرة الذاتية</h2>
+          <div id="analysisContent"><div class="analysis-placeholder"><p data-i18n="uploadFirst">يرجى رفع السيرة الذاتية أولاً</p></div></div>
+        </section>
+
+        <!-- ATS Tab -->
+        <section id="tab-ats" class="tab-content">
+          <h2 data-i18n="atsTitle">تقييم ATS</h2>
+          <div id="atsContent"><div class="analysis-placeholder"><p data-i18n="uploadFirst">يرجى رفع السيرة الذاتية أولاً</p></div></div>
+        </section>
+
+        <!-- Optimize Tab -->
+        <section id="tab-optimize" class="tab-content">
+          <h2 data-i18n="optimizeTitle">تحسين السيرة الذاتية لـ ATS</h2>
+          <div id="optimizeContent"><div class="analysis-placeholder"><p data-i18n="uploadFirst">يرجى رفع السيرة الذاتية أولاً</p></div></div>
+        </section>
+
+        <!-- Search Tab -->
+        <section id="tab-search" class="tab-content">
+          <h2 data-i18n="searchTitle">البحث عن وظائف</h2>
+          <div class="search-controls">
+            <div class="search-row">
+              <input type="text" id="searchQuery" placeholder="مسمى وظيفي، مهارة، شركة..." class="search-input">
+              <select id="searchLocation" class="search-select" style="min-width:130px">
+                <option value="">📍 كل المناطق</option>
+                <option value="Egypt">مصر</option>
+                <option value="Saudi Arabia">السعودية</option>
+                <option value="UAE">الإمارات</option>
+                <option value="Qatar">قطر</option>
+                <option value="Kuwait">الكويت</option>
+                <option value="Oman">عُمان</option>
+                <option value="Bahrain">البحرين</option>
+                <option value="Jordan">الأردن</option>
+                <option value="Morocco">المغرب</option>
+                <option value="USA">الولايات المتحدة</option>
+                <option value="UK">بريطانيا</option>
+                <option value="Germany">ألمانيا</option>
+                <option value="Canada">كندا</option>
+                <option value="Remote">عن بُعد</option>
+              </select>
+                <select id="searchSource" class="search-select">
+                <option value="all">📡 جميع المصادر (8 منصات)</option>
+                <option value="remoteok">🌐 RemoteOK</option>
+                <option value="weworkremotely">🌐 We Work Remotely</option>
+                <option value="remotive">🌐 Remotive</option>
+                <option value="jobicy">🌐 Jobicy</option>
+                <option value="indeed">🔍 Indeed</option>
+                <option value="googlejobs">🔍 Google Jobs</option>
+                <option value="glassdoor">🔍 Glassdoor</option>
+                <option value="linkedin">👤 LinkedIn</option>
+              </select>
+              <select id="searchType" class="search-select" style="min-width:120px">
+                <option value="">📋 الكل</option>
+                <option value="remote">🏠 Remote</option>
+                <option value="full-time">⏰ دوام كامل</option>
+                <option value="part-time">🕐 دوام جزئي</option>
+                <option value="contract">📄 عقد</option>
+                <option value="internship">🎓 تدريب</option>
+              </select>
+              <button class="btn btn-primary" onclick="searchJobs()" data-i18n="search">بحث</button>
+            </div>
+            <div class="search-quick">
+              <span data-i18n="quickSearch">بحث سريع: </span>
+              <button class="btn btn-sm" onclick="quickSearch('developer')">مطور</button>
+              <button class="btn btn-sm" onclick="quickSearch('designer')">مصمم</button>
+              <button class="btn btn-sm" onclick="quickSearch('data')">بيانات</button>
+              <button class="btn btn-sm" onclick="quickSearch('devops')">DevOps</button>
+              <button class="btn btn-sm" onclick="quickSearch('product')">منتج</button>
+            </div>
+          </div>
+          <div id="searchResults" class="search-results">
+            <div class="analysis-placeholder" data-i18n="searchPlaceholder">ابحث عن وظائف تتناسب مع مهاراتك</div>
+          </div>
+          <!-- AdSense In-Article Ad -->
+          <div class="ad-container" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--radius-sm);margin-top:1rem;min-height:90px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:0.8rem;color:var(--text-secondary);overflow:hidden">
+            <div id="ad-search-bottom">
+              <span style="font-size:1.2rem;display:block;margin-bottom:4px">📢</span>
+              <span>هذه المساحة للإعلان - شركات التوظيف والتكنولوجيا</span>
+              <span style="opacity:0.5;font-size:0.7rem;display:block;margin-top:2px">للتواصل: 010-000-0000</span>
+            </div>
+            </div>
+        </section>
+
+        <!-- Skill Gap Tab (Feature 2) -->
+        <section id="tab-skillgap" class="tab-content">
+          <h2>📊 فجوة المهارات</h2>
+          <div id="skillGapContent"><div class="analysis-placeholder">ارفع السيرة الذاتية أولاً</div></div>
+        </section>
+
+        <!-- Timeline Tab (Feature 5) -->
+        <section id="tab-timeline" class="tab-content">
+          <h2>🕐 الخط الزمني للطلبات</h2>
+          <div id="timelineContent"><div class="analysis-placeholder">لا توجد طلبات بعد</div></div>
+        </section>
+
+        <!-- Saved Search Tab (Feature 3) -->
+        <section id="tab-savedsearch" class="tab-content">
+          <h2>🔖 البحث المحفوظ</h2>
+          <div id="savedSearchContent"><div class="analysis-placeholder">احفظ عمليات البحث لمراقبتها دورياً</div></div>
+        </section>
+
+        <!-- Compare Tab (Feature 4) -->
+        <section id="tab-compare" class="tab-content">
+          <h2>⚖️ مقارنة العروض</h2>
+          <div id="compareContent"><div class="analysis-placeholder">اضغط ⚖️ على وظيفة في نتائج البحث لإضافتها للمقارنة</div></div>
+        </section>
+
+        <!-- Tracker Tab -->
+        <section id="tab-tracker" class="tab-content">
+          <h2 data-i18n="trackerTitle">متابعة طلبات التقديم</h2>
+          <div class="tracker-controls" style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="showAddForm()" data-i18n="addRequest">+ إضافة طلب جديد</button>
+            <button class="btn btn-secondary btn-sm" onclick="dedupAndNormalize()">🔄 تنظيف البيانات</button>
+            <button class="btn btn-secondary btn-sm" onclick="showFollowups()">⏰ متابعات</button>
+            <button class="btn btn-secondary btn-sm" onclick="exportCSV()">📥 CSV</button>
+            <button class="btn btn-secondary btn-sm" onclick="exportJSON()">💾 JSON</button>
+            <button class="btn btn-secondary btn-sm" onclick="requestNotification()">🔔 إشعارات</button>
+          </div>
+          <div id="followupPanel" style="display:none;margin:10px 0;background:#fffbeb;border:1px solid #fde68a;border-radius:var(--radius);padding:12px">
+            <h4 style="margin-bottom:6px;color:#92400e">⏰ المتابعات المستحقة</h4>
+            <div id="followupList"></div>
+          </div>
+          <div id="addForm" class="add-form" style="display:none">
+            <h3 data-i18n="addEntry">إضافة طلب تقديم</h3>
+            <input type="text" id="trCompany" placeholder="اسم الشركة">
+            <input type="text" id="trRole" placeholder="المسمى الوظيفي">
+            <input type="url" id="trUrl" placeholder="رابط الإعلان">
+            <select id="trStatus"></select>
+            <textarea id="trNotes" placeholder="ملاحظات"></textarea>
+            <div class="form-actions">
+              <button class="btn btn-primary" onclick="addTrackerEntry()" data-i18n="save">حفظ</button>
+              <button class="btn btn-secondary" onclick="hideAddForm()" data-i18n="cancel">إلغاء</button>
+            </div>
+          </div>
+          <div id="trackerList" class="tracker-list">
+            <div class="analysis-placeholder" data-i18n="noRequests">لا توجد طلبات بعد</div>
+          </div>
+        </section>
+
+        <!-- Analytics Tab -->
+        <section id="tab-analytics" class="tab-content">
+          <h2 data-i18n="analyticsTitle">تحليلات التقديم</h2>
+          <div id="analyticsContent" style="margin-top:12px">
+            <div class="loading" data-i18n="loading">جاري التحميل...</div>
+          </div>
+          <div style="margin-top:16px">
+            <h3 data-i18n="pipelineHealth">صحة البيانات</h3>
+            <div id="verifyResult" style="margin-top:8px">
+              <div class="loading" data-i18n="loading">جاري التحميل...</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Interview Prep Tab -->
+        <section id="tab-interview" class="tab-content">
+          <h2 data-i18n="interviewTitle">تحضير المقابلات - قصص STAR+R</h2>
+          <div class="search-controls" style="margin-bottom:12px">
+            <button class="btn btn-primary" onclick="showStoryForm()" data-i18n="addStory">+ إضافة قصة جديدة</button>
+          </div>
+          <div id="storyForm" style="display:none" class="story-form">
+            <h3 data-i18n="newStory">قصة STAR+R جديدة</h3>
+            <input type="text" id="stTitle" placeholder="عنوان القصة (مثلاً: تحسين أداء نظام)" class="search-input" style="margin-bottom:6px">
+            <textarea id="stSituation" placeholder="S - الموقف: ما كان الوضع؟"></textarea>
+            <textarea id="stTask" placeholder="T - المهمة: ما كان المطلوب منك؟"></textarea>
+            <textarea id="stAction" placeholder="A - الإجراء: ماذا فعلت؟"></textarea>
+            <textarea id="stResult" placeholder="R - النتيجة: ماذا تحقق؟ (استخدم أرقام)"></textarea>
+            <textarea id="stReflection" placeholder="R - التفكر: ماذا تعلمت؟"></textarea>
+            <input type="text" id="stTags" placeholder="tags (مفصولة بفواصل): قيادة, تقنية, فريق">
+            <div class="form-actions">
+              <button class="btn btn-primary" onclick="saveStory()" data-i18n="save">حفظ القصة</button>
+              <button class="btn btn-secondary" onclick="hideStoryForm()" data-i18n="cancel">إلغاء</button>
+            </div>
+          </div>
+          <div id="storiesList"></div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="app-footer">
+      <p>Job Finder v1.0 - الباحث الذكي عن الوظائف</p>
+    </footer>
+  </div>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth-check.js"></script>
+  <script src="../js/ads.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>
